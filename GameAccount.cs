@@ -8,11 +8,11 @@ namespace OOP_Lab_1
     {
         private const int DFLT_RATING = 100;
 
-        private static int GamesPlayedByAllPlayers { get; } = 0;
+        public static int GamesPlayedByAllPlayers { get; } = 0;
 
-        private string UserName { get; }
-        private int CurrentRating { get; }
-        private int GamesCount { get; }
+        public string UserName { get; }
+        public int CurrentRating { get; }
+        public int GamesCount { get; }
 
         public GameAccount(string UserName)
         {
