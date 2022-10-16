@@ -8,16 +8,17 @@ namespace OOP_Lab_1
     {
         private const int DFLT_RATING = 100;
 
-        public string UserName { get; }
-        public int CurrentRating { get; set}
-        public int GamesCount { get; set; }
+        public string UserName { get; set; }
+        public int CurrentRating { get; set; }
+        private int GamesCount { get; set; }
 
-        private List<Match> Matches;
+        private List<Match> Matches { get; set; }
 
         public GameAccount(string UserName)
         {
             if (UserName.Length < 1) this.UserName = "guest";
             else this.UserName = UserName;
+
             CurrentRating = DFLT_RATING;
             GamesCount = 0;
             Matches = new List<Match>();
@@ -36,7 +37,7 @@ namespace OOP_Lab_1
         }
         */
         //I've decided not to implement these methods because in my opinion results should be stored in Matches itselves
-        public void Play(Match match, int ratingChange)
+        public void SaveMatch(Match match, int ratingChange)
         {
             Matches.Add(match);
             GamesCount++;
@@ -44,9 +45,10 @@ namespace OOP_Lab_1
             if (CurrentRating < 1) CurrentRating = 1;
         }
 
-        public void getStats()
+        public void GetStats()
         {
-            Console.WriteLine(UserName + " played " + GamesCount + "games:");
+            Console.WriteLine(UserName + " played " + GamesCount + " games; Current rating: " + CurrentRating + "; Games list:\n{");
+
             string currLine;
             foreach (Match match in Matches)
             {
@@ -60,6 +62,8 @@ namespace OOP_Lab_1
 
                 Console.WriteLine(currLine);
             }
+
+            Console.WriteLine("}");
             return;
         }
     }

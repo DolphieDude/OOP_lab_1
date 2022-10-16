@@ -6,7 +6,19 @@ namespace OOP_Lab_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            GameAccount andrii = new GameAccount("Andrii");
+            //GameAccount stepan = andrii; //same player exception test
+            GameAccount stepan = new GameAccount("Stepan");
+
+            for (int i = 0; i < 10; i++)
+            {
+                Match.Play(andrii, stepan);
+            }
+            Console.WriteLine();
+
+            andrii.GetStats();
+            Console.WriteLine();
+            stepan.GetStats();
         }
     }
 }

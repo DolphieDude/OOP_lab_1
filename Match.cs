@@ -19,22 +19,13 @@ namespace OOP_Lab_1
 
         public Match(GameAccount player1, GameAccount player2)
         {
-            //I am not sure it's okay to compare objects like this. Should test it out
-            if (player1 == player2) throw new ArgumentException("You can't play using the same player");
+            if (player1 == player2) throw new ArgumentException("You can't play using the same player.");
 
             OverallGamesPlayed++;
             this.MatchIndex = OverallGamesPlayed;
 
-            if (player1.CurrentRating >= player2.CurrentRating)
-            {
-                RatingChange1 = DFLT_RATING_CHANGE;
-                RatingChange2 = DFLT_RATING_CHANGE + (player1.CurrentRating - player2.CurrentRating) / 2;
-            }
-            else
-            {
-                RatingChange2 = DFLT_RATING_CHANGE;
-                RatingChange1 = DFLT_RATING_CHANGE + (player2.CurrentRating - player1.CurrentRating) / 2;
-            }
+            RatingChange1 = DFLT_RATING_CHANGE;
+            RatingChange2 = DFLT_RATING_CHANGE;
             
             this.Player1 = player1;
             this.Player2 = player2;
@@ -44,18 +35,29 @@ namespace OOP_Lab_1
             {
                 Console.WriteLine(player1.UserName + " has won!");
                 Winner = player1;
+
+                if (player1.CurrentRating < player2.CurrentRating) RatingChange1 += (player2.CurrentRating - player1.CurrentRating) / 4;
                 RatingChange2 = -RatingChange2;
-                player1.Play(this, RatingChange1);
-                player2.Play(this, RatingChange2);
+
+                player1.SaveMatch(this, RatingChange1);
+                player2.SaveMatch(this, RatingChange2);
             }
             else
             {
                 Console.WriteLine(player2.UserName + " has won!");
                 Winner = player2;
+
+                if (player2.CurrentRating < player1.CurrentRating) RatingChange2 += (player1.CurrentRating - player2.CurrentRating) / 4;
                 RatingChange1 = -RatingChange1;
-                player1.Play(this, RatingChange1);
-                player2.Play(this, RatingChange2);
+
+                player1.SaveMatch(this, RatingChange1);
+                player2.SaveMatch(this, RatingChange2);
             }
+        }
+
+        public static void Play(GameAccount player1, GameAccount player2)
+        {
+            new Match(player1, player2);
         }
     }
 }
